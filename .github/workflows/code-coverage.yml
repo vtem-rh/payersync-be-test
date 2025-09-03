@@ -1,0 +1,93 @@
+name: Code Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests with coverage
+      run: npm test
+
+    - name: Extract coverage data
+      id: coverage
+      run: |
+        # Extract coverage percentages from the coverage summary
+        SUMMARY_FILE="./coverage/coverage-summary.json"
+        if [ -f "$SUMMARY_FILE" ]; then
+          STATEMENTS=$(jq -r '.total.statements.pct' "$SUMMARY_FILE")
+          BRANCHES=$(jq -r '.total.branches.pct' "$SUMMARY_FILE")
+          FUNCTIONS=$(jq -r '.total.functions.pct' "$SUMMARY_FILE")
+          LINES=$(jq -r '.total.lines.pct' "$SUMMARY_FILE")
+
+          # Set outputs for use in GitHub workflow summary
+          echo "statements=$STATEMENTS" >> $GITHUB_OUTPUT
+          echo "branches=$BRANCHES" >> $GITHUB_OUTPUT
+          echo "functions=$FUNCTIONS" >> $GITHUB_OUTPUT
+          echo "lines=$LINES" >> $GITHUB_OUTPUT
+
+          # Determine color based on line coverage
+          if (( $(echo "$LINES >= 90" | bc -l) )); then
+            echo "color=brightgreen" >> $GITHUB_OUTPUT
+          elif (( $(echo "$LINES >= 80" | bc -l) )); then
+            echo "color=green" >> $GITHUB_OUTPUT
+          elif (( $(echo "$LINES >= 70" | bc -l) )); then
+            echo "color=yellowgreen" >> $GITHUB_OUTPUT
+          elif (( $(echo "$LINES >= 60" | bc -l) )); then
+            echo "color=yellow" >> $GITHUB_OUTPUT
+          else
+            echo "color=red" >> $GITHUB_OUTPUT
+          fi
+        else
+          echo "Coverage summary file not found"
+          exit 1
+        fi
+
+    # This step creates a dynamic badge showing the actual coverage percentage
+    # It requires:
+    # 1. A GitHub Gist to store the badge data (set via vars.GIST_ID or replace the placeholder)
+    # 2. A Personal Access Token with 'gist' scope (stored in secrets.GIST_SECRET)
+    # The step will be skipped if:
+    # - Running on a pull request
+    # - Commit message contains '[skip badge]'
+    # The step will not fail the workflow if it encounters an error (continue-on-error: true)
+    - name: Create coverage badge
+      if: github.event_name != 'pull_request' && !contains(github.event.head_commit.message, '[skip badge]')
+      continue-on-error: true
+      uses: schneegans/dynamic-badges-action@v1.6.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: ${{ vars.GIST_ID || '<GIST_ID_PLACEHOLDER>' }}
+        filename: coverage.json
+        label: coverage
+        message: ${{ steps.coverage.outputs.lines }}%
+        color: ${{ steps.coverage.outputs.color }}
+        namedLogo: jest
+
+    - name: Create workflow summary
+      run: |
+        echo "## Code Coverage Summary" >> $GITHUB_STEP_SUMMARY
+        echo "| Type | Coverage |" >> $GITHUB_STEP_SUMMARY
+        echo "| ---- | -------- |" >> $GITHUB_STEP_SUMMARY
+        echo "| Statements | ${{ steps.coverage.outputs.statements }}% |" >> $GITHUB_STEP_SUMMARY
+        echo "| Branches | ${{ steps.coverage.outputs.branches }}% |" >> $GITHUB_STEP_SUMMARY
+        echo "| Functions | ${{ steps.coverage.outputs.functions }}% |" >> $GITHUB_STEP_SUMMARY
+        echo "| Lines | ${{ steps.coverage.outputs.lines }}% |" >> $GITHUB_STEP_SUMMARY

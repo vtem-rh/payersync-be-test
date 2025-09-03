@@ -1,0 +1,58 @@
+{
+    "merchantData": {
+        "legalEntity": {
+            "type": "organization",
+            "organization": {
+                "legalName": "Test Merchant Inc.",
+                "type": "privateCompany",
+                "registeredAddress": {
+                    "city": "Greenacres",
+                    "country": "US",
+                    "postalCode": "33463",
+                    "stateOrProvince": "FL",
+                    "street": "123 Test Street"
+                }
+            }
+        },
+        "accountHolder": {
+            "description": "Test Merchant Account Holder",
+            "reference": "test-merchant-001"
+        },
+        "balanceAccount": {
+            "description": "USD Balance Account for Test Merchant",
+            "defaultCurrencyCode": "USD"
+        },
+        "businessLine": {
+            "service": "paymentProcessing",
+            "industryCode": "339E",
+            "salesChannels": [
+                "eCommerce"
+            ],
+            "webData": [
+                {
+                    "webAddress": "https://testmerchant.com"
+                }
+            ]
+        },
+        "store": [{
+            "description": "Test Merchant Online Store",
+            "shopperStatement": "TestMerchant",
+            "reference": "test-merchant-store-1",
+            "phoneNumber": "+13123456789",
+            "address": {
+                "country": "US",
+                "line1": "200 Main Street",
+                "line2": "Building 5A",
+                "line3": "Suite 3",
+                "city": "Springfield",
+                "stateOrProvince": "NY",
+                "postalCode": "20250"
+            }
+        }],
+        "hostedOnboarding": {
+            "themeId": "ONB_THEME_001",
+            "redirectUrl": "https://testmerchant.com/onboarding-complete",
+            "locale": "en-US"
+        }
+    }
+}

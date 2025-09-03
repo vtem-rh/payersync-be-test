@@ -1,0 +1,94 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+name: aws-cdk-best-practices.mdc
+description: Best practices for AWS CDK applications and infrastructure as code
+globs: **/*.{ts,tsx}
+---
+
+- Use constructs to encapsulate reusable components
+- Organize stacks logically to improve maintainability
+- Utilize context variables for environment-specific configurations
+- Implement proper IAM roles and policies for security
+- Use `cdk diff` to review changes before deployment
+
+---
+name: typescript-best-practices.mdc 
+description: TypeScript coding standards and type safety guidelines
+globs: **/*.{ts,tsx}
+---
+
+- Use strict null checks
+- Prefer interface over type
+- Use type guards and assertions
+- Implement proper type inference
+- Keep types and interfaces organized in separate files
+
+---
+name: jest-best-practices.mdc
+description: Best practices for testing with Jest
+globs: **/*.{ts,tsx,js,jsx}
+---
+
+- Use descriptive test names for clarity
+- Group related tests using `describe` blocks
+- Mock external dependencies to isolate unit tests
+- Use `beforeEach` and `afterEach` for setup and teardown
+- Leverage snapshot testing for UI components
+
+---
+name: aws-sdk-best-practices.mdc
+description: Best practices for using AWS SDK for JavaScript
+globs: **/*.{ts,tsx}
+---
+
+- Use async/await for handling asynchronous operations
+- Implement error handling for API calls
+- Use environment variables for sensitive information
+- Optimize SDK client instantiation by reusing clients
+- Follow AWS best practices for service limits and retries
+
+---
+name: axios-best-practices.mdc
+description: Best practices for making HTTP requests with Axios
+globs: **/*.{ts,tsx}
+---
+
+- Use interceptors for request/response handling
+- Set a base URL for consistent API calls
+- Implement error handling for failed requests
+- Use cancellation tokens to manage request lifecycles
+- Keep API call logic separate from UI components
+
+---
+name: esbuild-best-practices.mdc
+description: Best practices for using esbuild for bundling and transpiling
+globs: **/*.{ts,tsx}
+---
+
+- Use esbuild for fast builds and minification
+- Leverage the `--watch` mode for development
+- Optimize output formats for different environments
+- Use plugins for additional functionality (e.g., JSX support)
+- Keep configuration minimal and focused on essential settings
+
+---
+name: constructs-best-practices.mdc
+description: Best practices for using Constructs in AWS CDK
+globs: **/*.{ts,tsx}
+---
+
+- Create reusable constructs for common patterns
+- Use composition to build complex resources from simpler ones
+- Document constructs with clear README files
+- Implement unit tests for constructs to ensure reliability
+- Follow semantic versioning for construct libraries
+
+--- 
+
+Make sure to adapt the globs according to your project's specific file structure and requirements.
+
+Breve Description of the project, this repo is the backend for an onboarding microservice that is hosted on aws eks with nextjs and cognito authentication. It is a multi step form that gathers information from the user, calls the backend to store and retrive the data entered as needed.

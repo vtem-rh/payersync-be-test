@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Adyen Onboarding Handler (Local Only) should process the onboarding flow successfully and return an onboarding link: merchantData-payload 1`] = `
+{
+  "accountHolder": {
+    "description": "Test Merchant Account Holder",
+    "reference": "test-merchant-001",
+  },
+  "balanceAccount": {
+    "defaultCurrencyCode": "USD",
+    "description": "USD Balance Account for Test Merchant",
+  },
+  "businessLine": {
+    "industryCode": "339E",
+    "salesChannels": [
+      "eCommerce",
+    ],
+    "service": "paymentProcessing",
+    "webData": [
+      {
+        "webAddress": "https://testmerchant.com",
+      },
+    ],
+  },
+  "hostedOnboarding": {
+    "locale": "en-US",
+    "redirectUrl": "https://testmerchant.com/onboarding-complete",
+    "themeId": "ONB_THEME_001",
+  },
+  "legalEntity": {
+    "organization": {
+      "legalName": "Test Merchant Inc.",
+      "registeredAddress": {
+        "city": "Greenacres",
+        "country": "US",
+        "postalCode": "33463",
+        "stateOrProvince": "FL",
+        "street": "123 Test Street",
+      },
+      "type": "privateCompany",
+    },
+    "type": "organization",
+  },
+  "store": [
+    {
+      "address": {
+        "city": "Springfield",
+        "country": "US",
+        "line1": "200 Main Street",
+        "line2": "Building 5A",
+        "line3": "Suite 3",
+        "postalCode": "20250",
+        "stateOrProvince": "NY",
+      },
+      "description": "Test Merchant Online Store",
+      "phoneNumber": "+13123456789",
+      "reference": "test-merchant-store-1",
+      "shopperStatement": "TestMerchant",
+    },
+  ],
+}
+`;

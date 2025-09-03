@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "c1a1b1a1-c1a1-c1a1-c1a1-c1a1b1a1c1a1",
+		"name": "PayerSync Onboarding API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Cognito Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"TOKEN\", jsonData.AuthenticationResult.IdToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-amz-json-1.1"
+					},
+					{
+						"key": "X-Amz-Target",
+						"value": "AWSCognitoIdentityProviderService.InitiateAuth"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"AuthFlow\": \"USER_PASSWORD_AUTH\",\n  \"ClientId\": \"54h95f1er4uj7q6ilhqjhka547\",\n  \"AuthParameters\": {\n    \"USERNAME\": \"{{COGNITO_USERNAME}}\",\n    \"PASSWORD\": \"{{COGNITO_PASSWORD}}\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cognito-idp.us-east-2.amazonaws.com/",
+					"protocol": "https",
+					"host": [
+						"cognito-idp",
+						"us-east-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "This request authenticates with AWS Cognito and returns tokens (ID, access, refresh). A test script will automatically save the ID token to a collection variable named `TOKEN`."
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payload",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:3000"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"legalEntity\": {\n    \"type\": \"organization\",\n    \"organization\": {\n      \"legalName\": \"BK Group\",\n      \"type\": \"privateCompany\",\n      \"registeredAddress\": {\n        \"city\": \"Greenacres\",\n        \"country\": \"US\",\n        \"postalCode\": \"33463\",\n        \"stateOrProvince\": \"FL\",\n        \"street\": \"5943 Westfall Rd\",\n        \"street2\": \"11th floor\"\n      }\n    }\n  },\n  \"accountHolder\": {\n    \"description\": \"BK Group Account Holder\",\n    \"reference\": \"BK-Group-Ref-001\"\n  },\n  \"businessLine\": {\n    \"service\": \"paymentProcessing\",\n    \"industryCode\": \"339E\",\n    \"salesChannels\": [\"eCommerce\", \"ecomMoto\"],\n    \"webData\": {\n      \"webAddress\": \"https://bkgroup.example.com\"\n    }\n  },\n  \"balanceAccount\": {\n    \"description\": \"Main Balance Account\",\n    \"defaultCurrencyCode\": \"USD\",\n    \"timeZone\": \"America/Chicago\"\n  },\n  \"store\": {\n    \"description\": \"BK Group Online Store\",\n    \"shopperStatement\": \"BKGSTORE\",\n    \"reference\": \"bk-store-01\",\n    \"phoneNumber\": \"+15551234567\",\n    \"address\": {\n      \"country\": \"US\",\n      \"line1\": \"123 Commerce St\",\n      \"city\": \"Metropolis\",\n      \"stateOrProvince\": \"NY\",\n      \"postalCode\": \"10001\"\n    }\n  },\n  \"hostedOnboarding\": {\n    \"redirectUrl\": \"https://rectanglehealth.com/onboarding/success\",\n    \"locale\": \"en-US\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/payload",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"payload"
+					]
+				},
+				"description": "This request creates a new payload for onboarding."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Payload for User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/payload?userId=312ba5b0-7051-7045-d075-ba377d5305c1",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"payload"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "312ba5b0-7051-7045-d075-ba377d5305c1"
+						}
+					]
+				},
+				"description": "This request retrieves payload data for a specific user."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "noauth"
+	},
+	"variable": [
+		{
+			"key": "COGNITO_USERNAME",
+			"value": "your_cognito_username",
+			"type": "string"
+		},
+		{
+			"key": "COGNITO_PASSWORD",
+			"value": "your_cognito_password",
+			"type": "string"
+		},
+		{
+			"key": "API_URL",
+			"value": "your_api_gateway_url",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

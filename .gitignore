@@ -1,0 +1,24 @@
+*.js
+node_modules/
+build/
+.cdk.staging/
+cdk.out/
+cdk-outputs.json
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+cdk-outputs.json
+.idea
+build
+.env
+.env.local
+.env-*
+test/api_cli/http-client.private.env.json
+
+# Compiled files in source
+src/**/*.js
+src/**/*.d.ts
+
+coverage/
+.env.*

@@ -1,0 +1,48 @@
+name: CDK Diff
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'lib/**'
+      - 'bin/**'
+      - 'cdk.json'
+
+jobs:
+  cdk-diff:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: CDK Diff (Dev)
+      run: npx cdk diff --context environment=dev
+      env:
+        NODE_ENV: test
+        JEST_WORKER_ID: 1
+        AWS_REGION: us-east-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      continue-on-error: true
+    
+    - name: CDK Diff (Prod)
+      run: npx cdk diff --context environment=prod
+      env:
+        NODE_ENV: test
+        JEST_WORKER_ID: 1
+        AWS_REGION: us-east-1
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      continue-on-error: true

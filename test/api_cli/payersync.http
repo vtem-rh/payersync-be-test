@@ -1,0 +1,86 @@
+### Get Cognito Token
+# This request authenticates with AWS Cognito and returns tokens (ID, access, refresh)
+# Replace USERNAME and PASSWORD with your actual credentials
+POST https://cognito-idp.us-east-2.amazonaws.com/
+Content-Type: application/x-amz-json-1.1
+X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth
+
+{
+  "AuthFlow": "USER_PASSWORD_AUTH",
+  "ClientId": "54h95f1er4uj7q6ilhqjhka547",
+  "AuthParameters": {
+    "USERNAME": "{{COGNITO_USERNAME}}",
+    "PASSWORD": "{{COGNITO_PASSWORD}}"
+  }
+}
+###
+
+### Create Payload
+# This request creates a new payload
+POST {{API_URL}}/payload
+Authorization: Bearer {{TOKEN}}
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+  "merchantData": {
+    "legalEntity": {
+      "type": "organization",
+      "organization": {
+        "legalName": "Halvorson & Sons LLC",
+        "type": "privateCompany",
+        "registeredAddress": {
+          "city": "Arlington",
+          "country": "US",
+          "postalCode": "76010",
+          "stateOrProvince": "TX",
+          "street": "842 Prairie Hill Dr",
+          "street2": "Suite 700"
+        }
+      }
+    },
+    "accountHolder": {
+      "description": "Halvorson & Sons LLC Account Holder",
+      "reference": "Halvorson-Sons-Ref-782"
+    },
+    "businessLine": {
+      "service": "paymentProcessing",
+      "industryCode": "339E",
+      "salesChannels": ["eCommerce", "ecomMoto"],
+      "webData": {
+        "webAddress": "https://halvorsonsons.example.com"
+      }
+    },
+    "balanceAccount": {
+      "description": "Corporate Balance Account",
+      "defaultCurrencyCode": "USD",
+      "timeZone": "America/Chicago"
+    },
+    "store": {
+      "description": "Halvorson & Sons Online Shop",
+      "shopperStatement": "HSONSSTORE",
+      "reference": "hv-store-884",
+      "phoneNumber": "+15559873210",
+      "address": {
+        "country": "US",
+        "line1": "745 Lincoln Ave",
+        "city": "Springfield",
+        "stateOrProvince": "IL",
+        "postalCode": "62704"
+      }
+    },
+    "hostedOnboarding": {
+      "redirectUrl": "https://rectanglehealth.com/onboarding/success",
+      "locale": "en-US"
+    }
+  },
+  "agreementTimeStamp": "2025-06-24T15:30:00Z",
+  "status": "proce"
+}
+
+### Get Payload for User
+# This request retrieves payload data for a specific user
+GET {{API_URL}}/payload?userId=312ba5b0-7051-7045-d075-ba377d5305c1
+Authorization: Bearer {{TOKEN}}
+
+###

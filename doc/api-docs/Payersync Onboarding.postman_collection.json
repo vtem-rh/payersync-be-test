@@ -1,0 +1,912 @@
+{
+	"info": {
+		"_postman_id": "75fbb2ac-6122-4f14-a339-5162637e905b",
+		"name": "Payersync Onboarding",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7898596",
+		"_collection_link": "https://rectanglehealth.postman.co/workspace/RH-Adyen~9af62b21-5b52-4502-8def-212f617d2b82/collection/7898596-75fbb2ac-6122-4f14-a339-5162637e905b?action=share&source=collection_link&creator=7898596"
+	},
+	"item": [
+		{
+			"name": "Create a legal entity organization",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{LEM_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-requested-verification-code",
+						"value": "",
+						"description": "Use a suberror code as your requested verification code. You can include one code at a time in your request header. Requested verification codes can only be used in your test environment.",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"organization\",\n    \"organization\": {\n        \"legalName\": \"BK Group\",\n        \"type\": \"privateCompany\",\n        \"registeredAddress\": {\n            \"city\": \"Greenacres\",\n            \"country\": \"US\",\n            \"postalCode\": \"33463\",\n            \"stateOrProvince\": \"FL\",\n            \"street\": \"5943 Westfall Rd\",\n            \"street2\": \"11th floor\"\n        }\n    }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/legalEntities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"legalEntities"
+					]
+				},
+				"description": "Creates a legal entity.   This resource contains information about the user that will be onboarded in your platform. Adyen uses this information to perform verification checks as required by payment industry regulations. Adyen informs you of the verification results through webhooks or API responses.   "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "x-requested-verification-code",
+								"value": "",
+								"description": "Use a suberror code as your requested verification code. You can include one code at a time in your request header. Requested verification codes can only be used in your test environment.",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"type\": \"organization\",\n \"organization\": {\n \"legalName\": \"Explorer Company based in US\",\n \"registrationNumber\": \"101002749\",\n \"type\": \"privateCompany\",\n \"registeredAddress\": {\n \"city\": \"New York\",\n \"country\": \"US\",\n \"postalCode\": \"10003\",\n \"stateOrProvince\": \"NY\",\n \"street\": \"71 5th Avenue\",\n \"street2\": \"11th floor\"\n}\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/legalEntities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"legalEntities"
+							]
+						},
+						"description": "Creates a legal entity.   This resource contains information about the user that will be onboarded in your platform. Adyen uses this information to perform verification checks as required by payment industry regulations. Adyen informs you of the verification results through webhooks or API responses.   "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"organization\": {\n \"legalName\": \"Explorer Company based in US\",\n \"registrationNumber\": \"101002749\",\n \"registeredAddress\": {\n \"city\": \"New York\",\n \"country\": \"US\",\n \"postalCode\": \"10003\",\n \"stateOrProvince\": \"NY\",\n \"street\": \"71 5th Avenue\",\n \"street2\": \"11th floor\"\n},\n \"type\": \"privateCompany\"\n},\n \"type\": \"organization\",\n \"id\": \"LE00000000000000000000001\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a legal entity individual",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{LEM_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "x-requested-verification-code",
+						"value": "",
+						"description": "Use a suberror code as your requested verification code. You can include one code at a time in your request header. Requested verification codes can only be used in your test environment.",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"type\": \"individual\",\n  \"individual\": {\n    \"name\": {\n      \"firstName\": \"Matt\",\n      \"lastName\": \"Bernier\"\n    },\n    \"residentialAddress\": {\n      \"country\": \"US\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/legalEntities",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"legalEntities"
+					]
+				},
+				"description": "Creates a legal entity.   This resource contains information about the user that will be onboarded in your platform. Adyen uses this information to perform verification checks as required by payment industry regulations. Adyen informs you of the verification results through webhooks or API responses.   "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "x-requested-verification-code",
+								"value": "",
+								"description": "Use a suberror code as your requested verification code. You can include one code at a time in your request header. Requested verification codes can only be used in your test environment.",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"type\": \"organization\",\n \"organization\": {\n \"legalName\": \"Explorer Company based in US\",\n \"registrationNumber\": \"101002749\",\n \"type\": \"privateCompany\",\n \"registeredAddress\": {\n \"city\": \"New York\",\n \"country\": \"US\",\n \"postalCode\": \"10003\",\n \"stateOrProvince\": \"NY\",\n \"street\": \"71 5th Avenue\",\n \"street2\": \"11th floor\"\n}\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/legalEntities",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"legalEntities"
+							]
+						},
+						"description": "Creates a legal entity.   This resource contains information about the user that will be onboarded in your platform. Adyen uses this information to perform verification checks as required by payment industry regulations. Adyen informs you of the verification results through webhooks or API responses.   "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"organization\": {\n \"legalName\": \"Explorer Company based in US\",\n \"registrationNumber\": \"101002749\",\n \"registeredAddress\": {\n \"city\": \"New York\",\n \"country\": \"US\",\n \"postalCode\": \"10003\",\n \"stateOrProvince\": \"NY\",\n \"street\": \"71 5th Avenue\",\n \"street2\": \"11th floor\"\n},\n \"type\": \"privateCompany\"\n},\n \"type\": \"organization\",\n \"id\": \"LE00000000000000000000001\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create an account holder",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{BP_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"description\": \"BK Group\",\n \"reference\": \"BK Group Inc\",\n \"legalEntityId\": \"LE32CQC223226H5MLSCH74WJM\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/accountHolders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"accountHolders"
+					]
+				},
+				"description": "Creates an account holder linked to a [legal entity](https://docs.adyen.com/api-explorer/#/legalentity/latest/post/legalEntities).  "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"description\": \"Account holder used for international payments and payouts\",\n \"reference\": \"S.Eller-001\",\n \"legalEntityId\": \"LE322JV223222D5GG42KN6869\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/accountHolders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"accountHolders"
+							]
+						},
+						"description": "Creates an account holder linked to a [legal entity](https://docs.adyen.com/api-explorer/#/legalentity/latest/post/legalEntities).  "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"balancePlatform\": \"YOUR_BALANCE_PLATFORM\",\n \"description\": \"Account holder used for international payments and payouts\",\n \"legalEntityId\": \"LE322JV223222D5GG42KN6869\",\n \"reference\": \"S.Eller-001\",\n \"capabilities\": {\n \"receiveFromPlatformPayments\": {\n \"enabled\": true,\n \"requested\": true,\n \"allowed\": false,\n \"verificationStatus\": \"pending\"\n},\n \"receiveFromBalanceAccount\": {\n \"enabled\": true,\n \"requested\": true,\n \"allowed\": false,\n \"verificationStatus\": \"pending\"\n},\n \"sendToBalanceAccount\": {\n \"enabled\": true,\n \"requested\": true,\n \"allowed\": false,\n \"verificationStatus\": \"pending\"\n},\n \"sendToTransferInstrument\": {\n \"enabled\": true,\n \"requested\": true,\n \"allowed\": false,\n \"requestedSettings\": {\n \"interval\": \"daily\",\n \"maxAmount\": {\n \"currency\": \"EUR\",\n \"value\": 0\n}\n},\n \"verificationStatus\": \"pending\"\n}\n},\n \"id\": \"AH3227C223222H5J4DCLW9VBV\",\n \"status\": \"active\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a business line for receiving payments",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{LEM_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"service\": \"paymentProcessing\",\n \"industryCode\": \"339E\",\n \"salesChannels\": [\"eCommerce\", \"ecomMoto\"],\n \"legalEntityId\": \"LE32CQC223226H5MLSCH74WJM\",\n \"webData\": [{\n \"webAddress\": \"https://yoururl.com\"\n}]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/businessLines",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"businessLines"
+					]
+				},
+				"description": "Creates a business line.   This resource contains information about your user's line of business, including their industry and their source of funds. Adyen uses this information to verify your users as required by payment industry regulations.Adyen informs you of the verification results through webhooks or API responses.  You can create a maximum of 200 business lines per legal entity for payment processing.  "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"service\": \"paymentProcessing\",\n \"industryCode\": \"339E\",\n \"salesChannels\": [\"eCommerce\", \"ecomMoto\"],\n \"legalEntityId\": \"LE00000000000000000000001\",\n \"webData\": [{\n \"webAddress\": \"https://yoururl.com\"\n}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/businessLines",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"businessLines"
+							]
+						},
+						"description": "Creates a business line.   This resource contains information about your user's line of business, including their industry and their source of funds. Adyen uses this information to verify your users as required by payment industry regulations.Adyen informs you of the verification results through webhooks or API responses.  You can create a maximum of 200 business lines per legal entity for payment processing.  "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"service\": \"paymentProcessing\",\n \"industryCode\": \"339E\",\n \"legalEntityId\": \"LE00000000000000000000001\",\n \"salesChannels\": [\"eCommerce\", \"ecomMoto\"],\n \"webData\": [{\n \"webAddress\": \"https://yoururl.com\",\n \"webAddressId\": \"SE654AC923222F5H4CQGS77V4\"\n}],\n \"id\": \"SE322KT223222D5FJ7TJN2986\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a store",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{PSP_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"merchantId\": \"RectangleHealthCOM\",\n \"description\": \"BK Group\",\n \"shopperStatement\": \"BK Group\",\n \"reference\": \"bk_group\",\n \"phoneNumber\": \"+13123456789\",\n \"address\": {\n \"country\": \"US\",\n \"line1\": \"200 Main Street\",\n \"line2\": \"Building 5A\",\n \"line3\": \"Suite 3\",\n \"city\": \"Springfield\",\n \"stateOrProvince\": \"NY\",\n \"postalCode\": \"20250\"\n},\n \"businessLineIds\": [\"SE32CQC223226H5MLSCP64WWT\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/stores",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"stores"
+					]
+				},
+				"description": "Creates a store for the merchant account specified in the request.  To make this request, your API credential must have the following [role](https://docs.adyen.com/development-resources/api-credentials#api-permissions): * Management API—Stores read and write  In the live environment, requests to this endpoint are subject to [rate limits](https://docs.adyen.com/point-of-sale/automating-terminal-management#rate-limits-in-the-live-environment)."
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"merchantId\": \"{{YOUR_MERCHANT_ACCOUNT}}_ID\",\n \"description\": \"City centre store\",\n \"shopperStatement\": \"Springfield Shop\",\n \"phoneNumber\": \"+13123456789\",\n \"reference\": \"Spring_store_2\",\n \"address\": {\n \"country\": \"US\",\n \"line1\": \"200 Main Street\",\n \"line2\": \"Building 5A\",\n \"line3\": \"Suite 3\",\n \"city\": \"Springfield\",\n \"stateOrProvince\": \"NY\",\n \"postalCode\": \"20250\"\n}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/stores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stores"
+							]
+						},
+						"description": "Creates a store for the merchant account specified in the request.  To make this request, your API credential must have the following [role](https://docs.adyen.com/development-resources/api-credentials#api-permissions): * Management API—Stores read and write  In the live environment, requests to this endpoint are subject to [rate limits](https://docs.adyen.com/point-of-sale/automating-terminal-management#rate-limits-in-the-live-environment)."
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"id\": \"YOUR_STORE_ID\",\n \"address\": {\n \"country\": \"US\",\n \"line1\": \"200 Main Street\",\n \"line2\": \"Building 5A\",\n \"line3\": \"Suite 3\",\n \"city\": \"Springfield\",\n \"stateOrProvince\": \"NY\",\n \"postalCode\": \"20250\"\n},\n \"description\": \"City centre store\",\n \"merchantId\": \"YOUR_MERCHANT_ACCOUNT_ID\",\n \"shopperStatement\": \"Springfield Shop\",\n \"phoneNumber\": \"+13123456789\",\n \"reference\": \"Spring_store_2\",\n \"status\": \"active\",\n \"_links\": {\n \"self\": {\n \"href\": \"https://management-test.adyen.com/v1/stores/YOUR_STORE_ID\"\n}\n}\n}"
+				}
+			]
+		},
+		{
+			"name": "Create a hosted onboarding link",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{LEM_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"themeId\": \"ONBT42CQ3223226G5MHSFMQ68M68ZD\",\n \"redirectUrl\": \"https://rectanglehealth.com\",\n \"locale\": \"en-US\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/legalEntities/:id/onboardingLinks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"legalEntities",
+						":id",
+						"onboardingLinks"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "LE32CMG223226H5MLHWPV8R4M",
+							"description": "The unique identifier of the legal entity"
+						}
+					]
+				},
+				"description": "Returns a link to an Adyen-hosted onboarding page where you need to redirect your user.  "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"themeId\": \"YOUR_THEME_ID\",\n \"redirectUrl\": \"https://your-company.example.com\",\n \"locale\": \"nl-NL\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/legalEntities/:id/onboardingLinks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"legalEntities",
+								":id",
+								"onboardingLinks"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "",
+									"description": "The unique identifier of the legal entity"
+								}
+							]
+						},
+						"description": "Returns a link to an Adyen-hosted onboarding page where you need to redirect your user.  "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"url\": \"https://balanceplatform-test.adyen.com/balanceplatform/uo/form/xtl-...?signature=..&cd=..&redirectUrl=https%3A%2F%2Fyour-company.com%2F&expiry=1667226404807&locale=nl-NL\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Split a payment in a Classic Platforms integration",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{PSP_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Idempotency-Key",
+						"value": "",
+						"description": "A unique identifier for the message with a maximum of 64 characters (we recommend a UUID).",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"paymentMethod\": {\n        \"type\": \"scheme\",\n        \"holderName\": \"Michael Lindsey\",\n        \"encryptedCardNumber\": \"test_4111111111111111\",\n        \"encryptedExpiryMonth\": \"test_03\",\n        \"encryptedExpiryYear\": \"test_2030\",\n        \"encryptedSecurityCode\": \"test_737\"\n    },\n    \"amount\": {\n        \"value\": 6200,\n        \"currency\": \"USD\"\n    },\n    \"reference\": \"{{$guid}}\",\n    \"merchantAccount\": \"RectangleHealthCOM\",\n    \"returnUrl\": \"https://your-company.com/...\",\n    \"store\": \"westmed_florida\",\n    \"splits\": [\n        {\n            \"amount\": {\n                \"value\": 6000\n            },\n            \"type\": \"BalanceAccount\",\n            \"account\": \"BA32CQL22322945MKLQ5Z4B5Z\",\n            \"reference\": \"E\",\n            \"description\": \"Antibiotics?\"\n        },\n        {\n            \"amount\": {\n                \"value\": 200\n            },\n            \"type\": \"Commission\",\n            \"reference\": \"Your reference for the commission\",\n            \"description\": \"Your description for the commission\"\n        },\n        {\n            \"type\": \"PaymentFee\",\n            \"account\": \"BA32CLB22322935MHJLB7787P\",\n            \"reference\": \"Your reference for the fees\",\n            \"description\": \"Your description for the fees\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/payments",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"payments"
+					]
+				},
+				"description": "Sends payment parameters (like amount, country, and currency) together with other required input details collected from the shopper. To know more about required parameters for specific payment methods, refer to our [payment method guides](https://docs.adyen.com/payment-methods).  The response depends on the [payment flow](https://docs.adyen.com/payment-methods#payment-flow): * For a direct flow, the response includes a `pspReference` and a `resultCode` with the payment result, for example **Authorised** or **Refused**.  * For a redirect or additional action, the response contains an `action` object. "
+			},
+			"response": []
+		},
+		{
+			"name": "Create a balance account Copy",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{BP_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"accountHolderId\": \"AH32CNR22322945MLSCLQCST4\",\n \"description\": \"USD Balance Account\",\n \"defaultCurrencyCode\": \"USD\",\n \"timeZone\": \"America/Chicago\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/balanceAccounts",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"balanceAccounts"
+					]
+				},
+				"description": "Creates a balance account that holds the funds of the associated account holder."
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"accountHolderId\": \"AH32272223222C5GXTD343TKP\",\n \"description\": \"S.Hopper - Main balance account\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/balanceAccounts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"balanceAccounts"
+							]
+						},
+						"description": "Creates a balance account that holds the funds of the associated account holder."
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"accountHolderId\": \"AH32272223222C5GXTD343TKP\",\n \"defaultCurrencyCode\": \"EUR\",\n \"description\": \"S.Hopper - Main balance account\",\n \"timeZone\": \"Europe/Amsterdam\",\n \"balances\": [{\n \"available\": 0,\n \"balance\": 0,\n \"currency\": \"EUR\",\n \"reserved\": 0\n}],\n \"id\": \"BA3227C223222H5J4DCGQ9V9L\",\n \"status\": \"active\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Request a payment method Copy",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{PSP_API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-API-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"type\": \"visa\",\n  \"storeIds\": [\"ST32997223228D5MLSCSNFNW7\"],\n \"currencies\": [\"USD\"],\n \"countries\": [\"US\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/merchants/:merchantId/paymentMethodSettings",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"merchants",
+						":merchantId",
+						"paymentMethodSettings"
+					],
+					"variable": [
+						{
+							"key": "merchantId",
+							"value": "{{YOUR_MERCHANT_ACCOUNT}}",
+							"description": "The unique identifier of the merchant account."
+						}
+					]
+				},
+				"description": "Sends a request to add a new payment method to the merchant account identified in the path.  To make this request, your API credential must have the following [role](https://docs.adyen.com/development-resources/api-credentials#api-permissions): * Management API—Payment methods read and write "
+			},
+			"response": [
+				{
+					"name": "OK - the request has succeeded.",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"type\": \"visa\",\n \"currencies\": [\"USD\"],\n \"countries\": [\"US\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/merchants/:merchantId/paymentMethodSettings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"merchants",
+								":merchantId",
+								"paymentMethodSettings"
+							],
+							"variable": [
+								{
+									"key": "merchantId",
+									"value": "{{YOUR_MERCHANT_ACCOUNT}}",
+									"description": "The unique identifier of the merchant account."
+								}
+							]
+						},
+						"description": "Sends a request to add a new payment method to the merchant account identified in the path.  To make this request, your API credential must have the following [role](https://docs.adyen.com/development-resources/api-credentials#api-permissions): * Management API—Payment methods read and write "
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"id\": \"PM3227C223224K5FH84M8CBNH\",\n \"type\": \"visa\",\n \"countries\": [\"US\"],\n \"currencies\": [\"USD\"]\n}"
+				}
+			]
+		}
+	]
+}

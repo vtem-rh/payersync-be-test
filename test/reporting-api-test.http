@@ -1,0 +1,30 @@
+### Test Reporting API Endpoints
+### Replace {API_URL} with: https://fktozjn1m7.execute-api.us-east-2.amazonaws.com
+### Replace {TOKEN} with a valid Cognito JWT token
+
+### 1. Get Available Tables
+GET {API_URL}/reporting/schema
+Authorization: Bearer {TOKEN}
+
+### 2. Get Table Schema
+GET {API_URL}/reporting/schema/onboarding_sessions
+Authorization: Bearer {TOKEN}
+
+### 3. Get Data with Filters
+GET {API_URL}/reporting/data?table=onboarding_sessions&filters=[{"field":"status","operator":"eq","value":"ONBOARDED"}]&sort=[{"field":"created_at","direction":"desc"}]&page=1&limit=10&fields=id,user_email,status,created_at
+Authorization: Bearer {TOKEN}
+
+### 4. Get Basic Statistics
+GET {API_URL}/reporting/stats
+Authorization: Bearer {TOKEN}
+
+### 5. Get Analytics Data
+GET {API_URL}/reporting/stats/analytics
+Authorization: Bearer {TOKEN}
+
+### 6. Test Error - Missing Table Parameter
+GET {API_URL}/reporting/data
+Authorization: Bearer {TOKEN}
+
+### 7. Test Error - Unauthorized (no token)
+GET {API_URL}/reporting/schema 
