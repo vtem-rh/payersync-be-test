@@ -45,7 +45,7 @@ jobs:
           compression-level: 9
           overwrite: true
   call-deployment-workflow:
-    uses: rectanglehealth/github-actions-cicd/.github/workflows/veracode-pipeline-scan.yml@main
+    uses: rectanglehealth/github-actions-cicd/.github/workflows/veracode-pipeline-scan.yml
     needs: pipeline_scan
     with:
       branch_name: ${{ github.ref_name }}
