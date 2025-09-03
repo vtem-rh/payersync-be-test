@@ -21,7 +21,7 @@ jobs:
     name: Pipeline Scan
     runs-on: ubuntu-latest
     env:
-      ASSET_NAME: 'payersync-onboarder-fe.zip'
+      ASSET_NAME: 'payersync-onboarder-backend.zip'
     outputs:
       asset_name: ${{ steps.create-artifact.outputs.asset_name }}
     steps:
@@ -50,6 +50,6 @@ jobs:
     with:
       branch_name: ${{ github.ref_name }}
       asset_name: ${{ needs.pipeline_scan.outputs.asset_name }}
-      veracode_app: payersync-onboarder-fe
+      veracode_app: payersync-onboarder-backend
       severity: ${{ inputs.severity || 'VeryHigh,High' }}
     secrets: inherit
