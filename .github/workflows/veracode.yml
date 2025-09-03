@@ -21,7 +21,9 @@ jobs:
     name: Pipeline Scan
     runs-on: ubuntu-latest
     env:
-      ASSET_NAME: 'payersync-onboarder-backend.zip'
+      ASSET_NAME: 'payersync-onboarder-fe.zip'
+    outputs:
+      asset_name: ${{ steps.create-artifact.outputs.asset_name }}
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
@@ -42,25 +44,12 @@ jobs:
           path: .
           compression-level: 9
           overwrite: true
-
-      - name: Download Veracode CLI
-        run: |
-          curl -sSL https://downloads.veracode.com/securityscan/veracode-cli.zip -o veracode-cli.zip
-          unzip veracode-cli.zip
-          chmod +x veracode-cli
-
-      - name: Run Veracode Pipeline Scan
-        run: |
-          ./veracode-cli pipeline-scan \
-            --veracode-api-id "${{ secrets.VERACODE_API_ID }}" \
-            --veracode-api-key "${{ secrets.VERACODE_API_KEY }}" \
-            --app-name "payersync-onboarder-backend" \
-            --file "${{ env.ASSET_NAME }}" \
-            --fail-on-severity "${{ inputs.severity || 'VeryHigh,High' }}"
-
-      - name: Cleanup
-        if: always()
-        run: |
-          rm -f veracode-cli.zip
-          rm -f veracode-cli
-          rm -f "${{ env.ASSET_NAME }}"
+  call-deployment-workflow:
+    uses: rectanglehealth/github-actions-cicd/.github/workflows/veracode-pipeline-scan.yml@main
+    needs: pipeline_scan
+    with:
+      branch_name: ${{ github.ref_name }}
+      asset_name: ${{ needs.pipeline_scan.outputs.asset_name }}
+      veracode_app: payersync-onboarder-fe
+      severity: ${{ inputs.severity || 'VeryHigh,High' }}
+    secrets: inherit
