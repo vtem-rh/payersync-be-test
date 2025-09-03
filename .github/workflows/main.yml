@@ -1,0 +1,55 @@
+name: Veracode Pipeline Scan
+
+on:
+  schedule:
+    - cron: '46 2 1 * *'
+
+  workflow_dispatch:
+    inputs:
+      severity:
+        description: 'Veracode severity to fail on'
+        default: "VeryHigh,High"
+        type: string
+    secrets:
+      VERACODE_API_ID:
+        required: true
+      VERACODE_API_KEY:
+        required: true
+
+jobs:
+  pipeline_scan:
+    name: Pipeline Scan
+    runs-on: ubuntu-latest
+    env:
+      ASSET_NAME: 'payersync-onboarder-backend.zip'
+    outputs:
+      asset_name: ${{ steps.create-artifact.outputs.asset_name }}
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.ref }}
+
+      - name: Prepare files to scan
+        id: create-artifact
+        run: |
+          zip -9 -r "${{ env.ASSET_NAME }}" .
+          echo "asset_name=${{ env.ASSET_NAME }}" >> $GITHUB_OUTPUT
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ASSET_NAME }}
+          path: .
+          compression-level: 9
+          overwrite: true
+  call-deployment-workflow:
+    uses: rectanglehealth/github-actions-cicd/.github/workflows/veracode-pipeline-scan.yml@main
+    needs: pipeline_scan
+    with:
+      branch_name: ${{ github.ref_name }}
+      asset_name: ${{ needs.pipeline_scan.outputs.asset_name }}
+      veracode_app: payersync-onboarder-backend
+      severity: ${{ inputs.severity || 'VeryHigh,High' }}
+    secrets: inherit
